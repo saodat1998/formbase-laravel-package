@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Saodat\FormBase\Services\Fields;
+namespace Saodat\FormBase\Fields;
 
 /**
  * Class TextAreaField

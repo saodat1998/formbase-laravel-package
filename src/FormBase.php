@@ -1,10 +1,10 @@
 <?php
 
-namespace Saodat\FormBase\Services;
+namespace Saodat\FormBase;
 
 
 use Illuminate\Container\Container;
-use Saodat\FormBase\Services\Fields\AbstractField;
+use Saodat\FormBase\Fields\AbstractField;
 
 /**
  * Class FormBase
@@ -25,8 +25,12 @@ abstract class FormBase
     /**
      * @var AbstractField
      */
-    protected $service;
+    protected $addedField;
 
+    /**
+     * @var Container
+     */
+    protected $container;
     /**
      * @var array
      */
@@ -63,7 +67,7 @@ abstract class FormBase
      */
     public function __construct(Container $container)
     {
-        $this->container      = $container;
+        $this->container = $container;
     }
 
     /**
@@ -73,25 +77,17 @@ abstract class FormBase
     public function addField()
     {
         $parameters = func_get_args();
+        $fieldType = $parameters[0];
 
-        $this->fieldType = $this->getFieldType($parameters[0]);
+        $this->fieldType = $this->getFieldType($fieldType);
 
-        /**
-         * remove argument 'type' if it is not a TextField
-         */
         if (!strpos($this->fieldType, 'TextField')) {
             array_shift($parameters);
         }
 
-        $propName = lcfirst($this->fieldType);
-        if (empty($this->$propName)) {
-            $this->service = $this->container->make($this->fieldType);
-            $this->$propName = $this->service;
-        } else {
-            $this->service = $this->$propName;
-        }
-
-        $this->service->addParams($parameters);
+        $this->addedField = $this->container->make($this->fieldType);
+        $this->addedField->addParams($parameters);
+        $this->fields[] = $this->addedField;
 
         return $this;
     }
@@ -102,13 +98,21 @@ abstract class FormBase
      */
     public function setAttributes($attributes = [])
     {
-        $this->service->setAttributes($attributes);
+        $this->addedField = array_pop($this->fields);
+        $this->addedField->setAttributes($attributes);
+
+        $this->fields[] = $this->addedField;
+
         return $this;
     }
 
     public function setValidationRule($validationRule = '')
     {
-        $this->service->setValidationRule($validationRule);
+        $this->addedField = array_pop($this->fields);
+        $this->addedField->setValidationRule($validationRule);
+
+        $this->fields[] = $this->addedField;
+
         return $this;
     }
 
@@ -120,29 +124,21 @@ abstract class FormBase
         return ['fields' => $this->fields];
     }
 
-
     /**
      * @return $this
      */
     public function get()
     {
-        $this->fields[] = $this->service->getFieldSchema();
+        $this->fields[] = $this->addedField->getFieldSchema();
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getOne()
+    public function getSchema(): array
     {
-        return $this->service->getFieldSchema();
+        return $this->addedField->getFieldSchema();
     }
 
-    /**
-     * @param $type
-     * @return string
-     */
-    public function getFieldType($type)
+    public function getFieldType(string $type): string
     {
         $types = array_keys(static::$availableFieldTypes);
 

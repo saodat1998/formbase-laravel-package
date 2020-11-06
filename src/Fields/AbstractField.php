@@ -1,6 +1,6 @@
 <?php
 
-namespace Saodat\FormBase\Services\Fields;
+namespace Saodat\FormBase\Fields;
 
 use Illuminate\Support\Arr;
 
@@ -95,9 +95,13 @@ abstract class AbstractField
         $this->value = $value;
     }
 
-    public function setAttributes($attributes)
+    public function setAttributes(array $attributes)
     {
-        $this->attributes = $attributes;
+        if (!$this->attributes) {
+            $this->attributes = $attributes;
+        }
+
+        $this->attributes += $attributes;
     }
 
     /**

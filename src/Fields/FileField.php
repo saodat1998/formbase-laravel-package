@@ -1,26 +1,22 @@
 <?php
 
-
-namespace Saodat\FormBase\Services\Fields;
-
-use Saodat\FormBase\Services\Fields\Contracts\GetOptions;
+namespace Saodat\FormBase\Fields;
 
 /**
- * Class RadioField
+ * Class FileField
  * @package Saodat\FormBase\Services\Fields
  */
-class RadioField extends AbstractField implements GetOptions
+class FileField extends AbstractField
 {
     /**
      * @var string
      */
-    protected $component = 'radio';
+    protected $component = 'file';
 
     /**
-     * @var array
+     * @var string
      */
-    protected $options;
-
+    protected $placeholder;
 
     /**
      * @var array
@@ -37,18 +33,11 @@ class RadioField extends AbstractField implements GetOptions
     /**
      * @return array
      */
-    public function getOptions(): array
-    {
-        return $this->options;
-    }
-
-    /**
-     * @return array
-     */
     public function getFieldSchema(): array
     {
         $fieldSchema = $this->getCommonFields();
-        $fieldSchema['options'] = $this->options;
+
+        $fieldSchema['placeholder'] = $this->placeholder;
 
         return $fieldSchema;
     }

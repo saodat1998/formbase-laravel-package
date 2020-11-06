@@ -1,25 +1,23 @@
 <?php
+namespace Saodat\FormBase\Fields;
 
-
-namespace Saodat\FormBase\Services\Fields;
-
-use Saodat\FormBase\Services\Fields\Contracts\GetPlaceholder;
+use Saodat\FormBase\Fields\Contracts\GetOptions;
 
 /**
- * Class TextAreaField
+ * Class CheckboxField
  * @package Saodat\FormBase\Services\Fields
  */
-class TextAreaField extends AbstractField implements GetPlaceholder
+class CheckboxField extends AbstractField implements GetOptions
 {
     /**
      * @var string
      */
-    protected $component = 'textarea';
+    protected $component = 'checkbox';
 
     /**
-     * @var string
+     * @var
      */
-    protected $placeholder;
+    protected $options;
 
     /**
      * @var array
@@ -27,17 +25,18 @@ class TextAreaField extends AbstractField implements GetPlaceholder
     protected $properties = [
         'name',
         'label',
+        'options',
         'attributes',
         'validationRule',
-        'value',
+        'value'
     ];
 
     /**
-     * @return string
+     * @return array
      */
-    public function getPlaceholder(): string
+    public function getOptions(): array
     {
-        return $this->placeholder;
+        return $this->options;
     }
 
     /**
@@ -46,9 +45,8 @@ class TextAreaField extends AbstractField implements GetPlaceholder
     public function getFieldSchema(): array
     {
         $fieldSchema = $this->getCommonFields();
-        $fieldSchema['placeholder'] = $this->placeholder;
+        $fieldSchema['options'] = $this->options;
 
         return $fieldSchema;
     }
-
 }

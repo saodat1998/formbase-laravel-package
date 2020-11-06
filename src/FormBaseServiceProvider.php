@@ -1,10 +1,10 @@
 <?php
 
-namespace Saodat\FormBase\Providers;
+namespace Saodat\FormBase;
 
 use Illuminate\Support\ServiceProvider;
-use Saodat\FormBase\Services\Contracts\FieldManager as FieldManagerContract;
-use Saodat\FormBase\Services\FieldManager;
+use Saodat\FormBase\Contracts\FormBuilderContract;
+use Saodat\FormBase\Services\FormBuilder;
 
 /**
  * Class FormBaseServiceProvider
@@ -18,6 +18,6 @@ class FormBaseServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(FieldManagerContract::class, FieldManager::class);
+        $this->app->bind(FormBuilderContract::class, FormBuilder::class);
     }
 }

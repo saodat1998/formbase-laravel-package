@@ -1,8 +1,8 @@
 <?php
 
-namespace Saodat\FormBase\Services\Fields;
+namespace Saodat\FormBase\Fields;
 
-use Saodat\FormBase\Services\Fields\Contracts\GetType;
+use Saodat\FormBase\Fields\Contracts\GetType;
 
 /**
  * Class TextField

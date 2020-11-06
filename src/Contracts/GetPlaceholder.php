@@ -1,5 +1,5 @@
 <?php
-namespace Saodat\FormBase\Services\Fields\Contracts;
+namespace Saodat\FormBase\Fields\Contracts;
 
 interface GetPlaceholder {
 

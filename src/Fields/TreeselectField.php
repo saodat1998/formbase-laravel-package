@@ -1,22 +1,22 @@
 <?php
 
-namespace Saodat\FormBase\Services\Fields;
 
-/**
- * Class FileField
- * @package Saodat\FormBase\Services\Fields
- */
-class FileField extends AbstractField
+namespace Saodat\FormBase\Fields;
+
+
+use Saodat\FormBase\Fields\Contracts\GetOptions;
+
+class TreeselectField extends AbstractField implements GetOptions
 {
     /**
      * @var string
      */
-    protected $component = 'file';
+    protected $component = 'treeselect';
 
     /**
-     * @var string
+     * @var array
      */
-    protected $placeholder;
+    protected $options;
 
     /**
      * @var array
@@ -27,8 +27,15 @@ class FileField extends AbstractField
         'options',
         'attributes',
         'validationRule',
-        'value',
     ];
+
+    /**
+     * @return array
+     */
+    public function getOptions(): array
+    {
+        return $this->options;
+    }
 
     /**
      * @return array
@@ -36,8 +43,7 @@ class FileField extends AbstractField
     public function getFieldSchema(): array
     {
         $fieldSchema = $this->getCommonFields();
-
-        $fieldSchema['placeholder'] = $this->placeholder;
+        $fieldSchema['options'] = $this->options;
 
         return $fieldSchema;
     }

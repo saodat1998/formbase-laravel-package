@@ -1,22 +1,26 @@
 <?php
 
 
-namespace Saodat\FormBase\Services\Fields;
+namespace Saodat\FormBase\Fields;
 
+use Saodat\FormBase\Fields\Contracts\GetOptions;
 
-use Saodat\FormBase\Services\Fields\Contracts\GetOptions;
-
-class TreeselectField extends AbstractField implements GetOptions
+/**
+ * Class RadioField
+ * @package Saodat\FormBase\Services\Fields
+ */
+class RadioField extends AbstractField implements GetOptions
 {
     /**
      * @var string
      */
-    protected $component = 'treeselect';
+    protected $component = 'radio';
 
     /**
      * @var array
      */
     protected $options;
+
 
     /**
      * @var array
@@ -27,6 +31,7 @@ class TreeselectField extends AbstractField implements GetOptions
         'options',
         'attributes',
         'validationRule',
+        'value',
     ];
 
     /**
