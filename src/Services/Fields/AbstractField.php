@@ -1,28 +1,74 @@
 <?php
 
+namespace Saodat\FormBase\Services\Fields;
 
-namespace Saodat\FormBase\Fields;
+use Illuminate\Support\Arr;
 
-
+/**
+ * Class AbstractField
+ * @package Saodat\FormBase\Services\Fields
+ */
 abstract class AbstractField
 {
+    /**
+     * @var
+     */
     protected $component;
+
+    /**
+     * @var string
+     */
     protected $name;
+
+    /**
+     * @var string
+     */
     protected $label;
-    protected $attributes;
+
+    /**
+     * @var array
+     */
+    protected $attributes = [];
+
+    /**
+     * @var null
+     */
     protected $value;
+
+    /**
+     * @var string
+     */
     protected $validationRule;
 
+    /**
+     * Default properties
+     *
+     * @var array
+     */
+    protected $properties = [
+        'name',
+        'label',
+        'options',
+        'value',
+        'validationRule',
+    ];
 
-    public function __construct(string $name, string $label, $value = null, $attributes = [], $validationRule = "")
+    /**
+     * @param array $params
+     * @return $this
+     */
+    public function addParams($params = [])
     {
-        $this->name = $name;
-        $this->label = $label;
-        $this->attributes = $attributes;
-        $this->value = $value;
-        $this->validationRule = $validationRule;
+        foreach ($this->properties as $key => $property) {
+            $this->{$property} = Arr::get($params, $key);
+        }
+
+        return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return $this->name;
@@ -49,6 +95,11 @@ abstract class AbstractField
         $this->value = $value;
     }
 
+    public function setAttributes($attributes)
+    {
+        $this->attributes = $attributes;
+    }
+
     /**
      * @return mixed
      */
@@ -68,7 +119,7 @@ abstract class AbstractField
     /**
      * @param mixed|string $validationRule
      */
-    public function setValidationRule($validationRule): void
+    public function setValidationRule(string $validationRule)
     {
         $this->validationRule = $validationRule;
     }
@@ -79,7 +130,7 @@ abstract class AbstractField
         $fieldSchema['name'] = $this->name;
         $fieldSchema['label'] = $this->label;
         $fieldSchema['value'] = $this->value;
-        $fieldSchema['validationRule'] = $this->validationRule;
+        $fieldSchema['rule'] = $this->validationRule;
         $fieldSchema['attributes'] = $this->attributes;
 
         return $fieldSchema;

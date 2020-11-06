@@ -1,14 +1,33 @@
 <?php
 
-namespace Saodat\FormBase\Fields;
+namespace Saodat\FormBase\Services\Fields;
 
+use Saodat\FormBase\Services\Fields\Contracts\GetType;
 
-class TextField extends AbstractField
+/**
+ * Class TextField
+ * @package Saodat\FormBase\Services\Fields
+ */
+class TextField extends AbstractField implements GetType
 {
+    /**
+     * @var string
+     */
     protected $type;
+
+    /**
+     * @var string
+     */
     protected $component = 'text';
+
+    /**
+     * @var string
+     */
     protected $placeholder;
 
+    /**
+     * @var array
+     */
     protected $availableTypes = [
         'text',
         'email',
@@ -25,25 +44,22 @@ class TextField extends AbstractField
     ];
 
     /**
-     * TextField constructor.
-     * @param string $type
-     * @param string $name
-     * @param string $label
-     * @param array $attributes
-     * @param null $value
-     * @param string $validationRule
-     * @param string $placeholder
+     * @var array
      */
-    public function __construct(string $type, string $name, string $label = "", $attributes = [], $value = null, $validationRule = '', $placeholder = "")
-    {
-        $this->validateType($type);
-        $this->type = $type;
+    protected $properties = [
+        'type',
+        'name',
+        'label',
+        'placeholder',
+        'attributes',
+        'validationRule',
+        'value'
+    ];
 
-        $this->placeholder = $placeholder;
-
-        parent::__construct($name, $label, $value, $attributes, $validationRule);
-    }
-
+    /**
+     * @param $type
+     * @return bool
+     */
     public function validateType($type): bool
     {
         if (!$type || trim($type) == '') {
@@ -62,11 +78,17 @@ class TextField extends AbstractField
         return true;
     }
 
-    public function getType()
+    /**
+     * @return string
+     */
+    public function getType(): string
     {
         return $this->type;
     }
 
+    /**
+     * @return array
+     */
     public function getFieldSchema(): array
     {
         $fieldSchema = $this->getCommonFields();
