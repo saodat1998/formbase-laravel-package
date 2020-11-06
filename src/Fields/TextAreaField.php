@@ -3,13 +3,13 @@
 
 namespace Saodat\FormBase\Fields;
 
-use Saodat\FormBase\Fields\Contracts\GetPlaceholder;
+use Saodat\FormBase\Contracts\PlaceholderInterface;
 
 /**
  * Class TextAreaField
  * @package Saodat\FormBase\Services\Fields
  */
-class TextAreaField extends AbstractField implements GetPlaceholder
+class TextAreaField extends AbstractField implements PlaceholderInterface
 {
     /**
      * @var string

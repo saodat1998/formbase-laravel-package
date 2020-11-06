@@ -3,13 +3,13 @@
 
 namespace Saodat\FormBase\Fields;
 
-use Saodat\FormBase\Fields\Contracts\GetOptions;
+use Saodat\FormBase\Contracts\OptionsInterface;
 
 /**
  * Class RadioField
  * @package Saodat\FormBase\Services\Fields
  */
-class RadioField extends AbstractField implements GetOptions
+class RadioField extends AbstractField implements OptionsInterface
 {
     /**
      * @var string
@@ -51,5 +51,10 @@ class RadioField extends AbstractField implements GetOptions
         $fieldSchema['options'] = $this->options;
 
         return $fieldSchema;
+    }
+
+    public function setOptions(array $options)
+    {
+        // TODO: Implement setOptions() method.
     }
 }

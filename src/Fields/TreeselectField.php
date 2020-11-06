@@ -4,9 +4,9 @@
 namespace Saodat\FormBase\Fields;
 
 
-use Saodat\FormBase\Fields\Contracts\GetOptions;
+use Saodat\FormBase\Contracts\OptionsInterface;
 
-class TreeselectField extends AbstractField implements GetOptions
+class TreeselectField extends AbstractField implements OptionsInterface
 {
     /**
      * @var string
@@ -29,17 +29,17 @@ class TreeselectField extends AbstractField implements GetOptions
         'validationRule',
     ];
 
-    /**
-     * @return array
-     */
     public function getOptions(): array
     {
         return $this->options;
     }
 
-    /**
-     * @return array
-     */
+
+    public function setOptions(array $options)
+    {
+        $this->options = $options;
+    }
+
     public function getFieldSchema(): array
     {
         $fieldSchema = $this->getCommonFields();

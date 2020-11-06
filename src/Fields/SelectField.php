@@ -2,13 +2,13 @@
 
 namespace Saodat\FormBase\Fields;
 
-use Saodat\FormBase\Fields\Contracts\GetOptions;
+use Saodat\FormBase\Contracts\OptionsInterface;
 
 /**
  * Class SelectField
  * @package Saodat\FormBase\Services\Fields
  */
-class SelectField extends AbstractField implements GetOptions
+class SelectField extends AbstractField implements OptionsInterface
 {
     /**
      * @var string
@@ -38,6 +38,11 @@ class SelectField extends AbstractField implements GetOptions
     public function getOptions(): array
     {
         return $this->options;
+    }
+
+    public function setOptions(array $options)
+    {
+        $this->options = $options;
     }
 
     /**

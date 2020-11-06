@@ -2,13 +2,13 @@
 
 namespace Saodat\FormBase\Fields;
 
-use Saodat\FormBase\Fields\Contracts\GetType;
+use Saodat\FormBase\Contracts\TypeInterfaces;
 
 /**
  * Class TextField
  * @package Saodat\FormBase\Services\Fields
  */
-class TextField extends AbstractField implements GetType
+class TextField extends AbstractField implements TypeInterfaces
 {
     /**
      * @var string
@@ -43,18 +43,11 @@ class TextField extends AbstractField implements GetType
         'week'
     ];
 
-    /**
-     * @var array
-     */
-    protected $properties = [
-        'type',
-        'name',
-        'label',
-        'placeholder',
-        'attributes',
-        'validationRule',
-        'value'
-    ];
+    public function __construct(string $type, string $name, string $label, array $options = [])
+    {
+        $this->type = $type;
+        parent::__construct($name, $label, $options);
+    }
 
     /**
      * @param $type

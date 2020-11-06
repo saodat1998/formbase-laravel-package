@@ -3,12 +3,13 @@
 namespace Saodat\FormBase\Fields;
 
 use Illuminate\Support\Arr;
+use Saodat\FormBase\Contracts\AttributeInterface;
 
 /**
  * Class AbstractField
  * @package Saodat\FormBase\Services\Fields
  */
-abstract class AbstractField
+abstract class AbstractField implements AttributeInterface
 {
     /**
      * @var
@@ -31,7 +32,7 @@ abstract class AbstractField
     protected $attributes = [];
 
     /**
-     * @var null
+     * @var mixed
      */
     protected $value;
 
@@ -53,17 +54,41 @@ abstract class AbstractField
         'validationRule',
     ];
 
-    /**
-     * @param array $params
-     * @return $this
-     */
-    public function addParams($params = [])
+    public function __construct(string $name, string $label,  array $options = [])
     {
-        foreach ($this->properties as $key => $property) {
-            $this->{$property} = Arr::get($params, $key);
+        $this->name = $name;
+        $this->label = $label;
+        $this->setParams($options);
+    }
+
+    abstract public function getFieldSchema(): array;
+
+    protected function setParams(array $params) : void
+    {
+        if (!$params) {
+            return;
         }
 
-        return $this;
+        foreach ($params as $name => $value) {
+            if (!property_exists($this, $name)) {
+                continue;
+            }
+            $this->{$name} = $value;
+        }
+    }
+
+    public function setAttributes(array $attributes)
+    {
+        if (!$this->attributes) {
+            $this->attributes = $attributes;
+        }
+
+        $this->attributes += $attributes;
+    }
+
+    public function getAttributes(): array
+    {
+        return $this->attributes;
     }
 
     /**
@@ -95,14 +120,6 @@ abstract class AbstractField
         $this->value = $value;
     }
 
-    public function setAttributes(array $attributes)
-    {
-        if (!$this->attributes) {
-            $this->attributes = $attributes;
-        }
-
-        $this->attributes += $attributes;
-    }
 
     /**
      * @return mixed
@@ -139,7 +156,5 @@ abstract class AbstractField
 
         return $fieldSchema;
     }
-
-    abstract public function getFieldSchema(): array;
 }
 

@@ -3,8 +3,7 @@
 namespace Saodat\FormBase;
 
 use Illuminate\Support\ServiceProvider;
-use Saodat\FormBase\Contracts\FormBuilderContract;
-use Saodat\FormBase\Services\FormBuilder;
+use Saodat\FormBase\Contracts\FormBuilderInterface;
 
 /**
  * Class FormBaseServiceProvider
@@ -18,6 +17,6 @@ class FormBaseServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(FormBuilderContract::class, FormBuilder::class);
+        $this->app->bind(FormBuilderInterface::class, FormBuilder::class);
     }
 }

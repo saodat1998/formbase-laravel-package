@@ -1,13 +1,13 @@
 <?php
 namespace Saodat\FormBase\Fields;
 
-use Saodat\FormBase\Fields\Contracts\GetOptions;
+use Saodat\FormBase\Contracts\OptionsInterface;
 
 /**
  * Class CheckboxField
  * @package Saodat\FormBase\Services\Fields
  */
-class CheckboxField extends AbstractField implements GetOptions
+class CheckboxField extends AbstractField implements OptionsInterface
 {
     /**
      * @var string
@@ -31,12 +31,14 @@ class CheckboxField extends AbstractField implements GetOptions
         'value'
     ];
 
-    /**
-     * @return array
-     */
     public function getOptions(): array
     {
         return $this->options;
+    }
+
+    public function setOptions(array $options)
+    {
+        $this->options = $options;
     }
 
     /**

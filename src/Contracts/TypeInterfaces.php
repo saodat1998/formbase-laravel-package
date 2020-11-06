@@ -1,9 +1,9 @@
 <?php
 
-namespace Saodat\FormBase\Fields\Contracts;
+namespace Saodat\FormBase\Contracts;
 
 
-interface GetType
+interface TypeInterfaces
 {
 
     /**
