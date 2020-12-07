@@ -18,7 +18,7 @@ composer require saodat/form-base
 ## Usage
 
 ``` php
-// Usage description here
+php artisan make:form Forms/UserForm
 ```
 
 ### Testing

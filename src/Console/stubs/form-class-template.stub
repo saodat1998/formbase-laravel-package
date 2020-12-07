@@ -1,0 +1,13 @@
+<?php
+
+namespace {{namespace}};
+
+use Saodat\FormBase\Contracts\FormBuilderInterface;
+
+class {{class}} extends AbstractForm
+{
+    public function __construct(FormBuilderInterface $formBuilder)
+    {
+        parent::__construct($formBuilder);
+    }
+}
