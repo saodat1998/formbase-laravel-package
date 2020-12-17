@@ -9,7 +9,7 @@ use Saodat\FormBase\Contracts\PlaceholderInterface;
  * Class TextAreaField
  * @package Saodat\FormBase\Services\Fields
  */
-class TextAreaField extends AbstractField implements PlaceholderInterface
+class TextareaField extends AbstractField implements PlaceholderInterface
 {
     /**
      * @var string
